@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch api/index.ts",
-    "start": "node --loader tsx/esm api/index.ts",
+    "start": "node --import tsx/esm api/index.ts",
     "build": "tsc",
     "migrate": "tsx migrate.ts",
     "drizzle:generate": "drizzle-kit generate",
