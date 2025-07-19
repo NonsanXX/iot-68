@@ -1,5 +1,5 @@
 {
-  "name": "02-2-database-crud-drizzle",
+  "name": "iot-wk1-assgn",
   "type": "module",
   "scripts": {
     "dev": "tsx watch api/index.ts",
@@ -13,7 +13,6 @@
   "dependencies": {
     "@hono/node-server": "^1.16.0",
     "@hono/zod-validator": "^0.7.1",
-    "@types/pg": "^8.15.4",
     "tsx": "^4.7.1",
     "dayjs": "^1.11.13",
     "dotenv": "^17.2.0",
@@ -26,5 +25,8 @@
     "@types/node": "^20.11.17",
     "drizzle-kit": "^0.31.4",
     "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
