@@ -22,6 +22,7 @@ studentsRouter.get("/:id", async (c) => {
   }
   return c.json(result);
 });
+
 studentsRouter.post(
   "/",
   zValidator(
@@ -30,13 +31,16 @@ studentsRouter.post(
       fname: z.string().min(1),
       lname: z.string().min(1),
       studentId: z.string().min(1),
-      dob: z.string().datetime().transform((data: string) => new Date(data)),
+      dob: z.string().date().or(z.string().datetime()).transform((val) => {
+        const date = new Date(val);
+        return date.toISOString().split('T')[0]; // Extract only the date part (YYYY-MM-DD)
+      }),
       sex: z.string().min(1)
     })
   ),
   async (c) => {
     const { fname, lname, studentId, dob, sex } = c.req.valid("json");
-    const dobString = dob instanceof Date ? dob.toISOString() : (typeof dob === "string" ? new Date(dob).toISOString() : "");
+    const dobString = dob; // Already in YYYY-MM-DD format
     const result = await drizzle
       .insert(students)
       .values({
@@ -59,7 +63,10 @@ studentsRouter.patch(
       fname: z.string().min(1).optional(),
       lname: z.string().min(1).optional(),
       studentId: z.string().min(1).optional(),
-      dob: z.string().datetime().optional(),
+      dob: z.string().date().or(z.string().datetime()).transform((val) => {
+        const date = new Date(val);
+        return date.toISOString().split('T')[0]; // Extract only the date part (YYYY-MM-DD)
+      }).optional(),
       sex: z.string().min(1).optional()
     })
   ),
@@ -72,12 +79,12 @@ studentsRouter.patch(
         fname,
         lname,
         studentId,
-        dob: typeof dob === "string" ? new Date(dob).toISOString() : dob,
+        dob: dob || undefined, // Use the transformed date string directly
         sex
       })
       .where(eq(students.id, id))
       .returning();
-    if (!result) {
+    if (!result || result.length === 0) {
       return c.json({ error: "Student not found" }, 404);
     }
     return c.json({ success: true, student: result[0] }, 200);
@@ -95,6 +102,5 @@ studentsRouter.delete("/:id", async (c) => {
   }
   return c.json({ success: true, message: "Student deleted successfully" }, 200);
 });
-
 
 export default studentsRouter;
