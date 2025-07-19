@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: student-api
+    runtime: node
+    buildCommand: npm install && npm run migrate
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: student-db
+          property: connectionString
+      - key: API_SECRET
+        generateValue: true
+    
+databases:
+  - name: student-db
+    databaseName: student_database
+    user: student_user
