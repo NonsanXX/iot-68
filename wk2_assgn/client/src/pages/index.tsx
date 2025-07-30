@@ -1,6 +1,7 @@
 import Layout from "../components/layout";
 import cafeBackgroundImage from "../assets/images/bg-cafe-1.jpg";
 import ajPanwitImage from "../assets/images/aj-panwit.jpg";
+import meImage from "../assets/images/me.jpg";
 import coffeeImage from "../assets/images/coffee-1.jpg";
 
 export default function HomePage() {
@@ -31,15 +32,20 @@ export default function HomePage() {
             <img src={ajPanwitImage} alt="Panwit Tuwanut" className="h-full w-full object-cover" />
           </div>
         </div>
-        <p className="text-right mt-8">
-          ปัจจุบันค่าเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ ....
-          {/* TODO: ชื่อของตนเอง, รหัสประจำตัวนักศึกษา และแนะนำคาเฟ่นี้ต่ออีกสักหน่อย + ใส่รูปของตนเอง (ไม่จำเป็นหากไม่สะดวกใจใส่รูป) */}
-          ซึ่งมีบริการ... Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          placeat sit ea sapiente officia sunt cumque impedit, reiciendis quis eius asperiores!
-          Minus, mollitia? Vitae inventore odio quod ducimus similique, expedita sequi, reiciendis
-          rem recusandae impedit voluptatibus quo veritatis ut quis et suscipit? Eligendi, neque!
-          Earum quaerat unde similique totam. Pariatur!
-        </p>
+        
+        <div className="grid grid-cols-3 gap-4 mt-8">
+          <div>
+            <img src={meImage} alt="Your Photo" className="h-full w-full object-cover" />
+          </div>
+          
+          <p className="text-left col-span-2">
+            ปัจจุบันคาเฟ่ และห้องสมุดของเรา อยู่ในช่วงการดูแลของ นายภูริภัทร อรุณไพศาล รหัสประจำตัว 66070305
+            ซึ่งมุ่งมั่นที่จะสร้างพื้นที่แห่งการเรียนรู้และความสุขสำหรับผู้ที่หลงใหลในเทคโนโลยี IoT 
+            ที่นี่เราให้บริการกาแฟคุณภาพดี ขนมหวานแสนอร่อย และบรรยากาศที่เอื้อต่อการศึกษาค้นคว้า
+            พร้อมด้วยหนังสือและทรัพยากรการเรียนรู้ที่ทันสมัย เพื่อให้ทุกคนได้สัมผัสกับความก้าวหน้า
+            ของเทคโนโลยีในยุคดิจิทัลอย่างเต็มที่
+          </p>
+        </div>
       </section>
 
       <section className="w-full flex justify-center">
