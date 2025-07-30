@@ -17,6 +17,8 @@ export default function BookCreatePage() {
     initialValues: {
       title: "",
       author: "",
+      description: "",
+      synopsis: "",
       publishedAt: new Date(),
     },
 
@@ -91,9 +93,17 @@ export default function BookCreatePage() {
               placeholder="วันที่พิมพ์"
               {...bookCreateForm.getInputProps("publishedAt")}
             />
+            <TextInput
+              label="รายละเอียดหนังสือ"
+              placeholder="รายละเอียดหนังสือ"
+              {...bookCreateForm.getInputProps("description")}
+            />
+            <TextInput
+              label="เรื่องย่อ"
+              placeholder="เรื่องย่อ"
+              {...bookCreateForm.getInputProps("synopsis")}
+            />
 
-            {/* TODO: เพิ่มรายละเอียดหนังสือ */}
-            {/* TODO: เพิ่มเรื่องย่อ */}
             {/* TODO: เพิ่มหมวดหมู่(s) */}
 
             <Divider />

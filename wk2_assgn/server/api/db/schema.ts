@@ -48,6 +48,8 @@ export const books = t.pgTable("books", {
       length: 255,
     })
     .notNull(),
+  description: t.text(),
+  synopsis: t.text(),
   publishedAt: t.timestamp().notNull(),
 
   genreId: t.bigint({ mode: "number" }).references(() => genres.id, {
