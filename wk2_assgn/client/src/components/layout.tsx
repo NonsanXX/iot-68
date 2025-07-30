@@ -30,13 +30,19 @@ export default function Layout({ children }: LayoutProps) {
               >
                 หนังสือ
               </Link>
+              <Link
+                to={"/genres"}
+                className="flex items-center h-14 px-1 no-underline text-neutral-600 font-semibold text-sm"
+              >
+                หมวดหมู่
+              </Link>
 
-              {/* <Link
+              <Link
                 to={"/menu"}
                 className="flex items-center h-14 px-1 no-underline text-neutral-600 font-semibold text-sm"
               >
                 เมนู
-              </Link> */}
+              </Link>
             </Group>
 
             <div></div>

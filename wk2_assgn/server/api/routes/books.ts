@@ -9,7 +9,11 @@ import dayjs from "dayjs";
 const booksRouter = new Hono();
 
 booksRouter.get("/", async (c) => {
-  const allBooks = await drizzle.select().from(books);
+  const allBooks = await drizzle.query.books.findMany({
+    with: {
+      genre: true,
+    },
+  });
   return c.json(allBooks);
 });
 

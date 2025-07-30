@@ -13,8 +13,11 @@ import { Notifications } from "@mantine/notifications";
 import BooksPage from "./pages/books";
 import BookByIdPage from "./pages/book-by-id";
 import BookEditById from "./pages/book-edit-by-id";
+import GenresPage from "./pages/genres";
 import { ModalsProvider } from "@mantine/modals";
 import BookCreatePage from "./pages/book-create";
+import AddGenreModal from "./components/AddGenreModal";
+import EditGenreModal from "./components/EditGenreModal";
 
 const theme = createTheme({
   primaryColor: "orange",
@@ -42,6 +45,10 @@ const router = createBrowserRouter([
     path: "/books/:bookId/edit",
     element: <BookEditById />,
   },
+  {
+    path: "/genres",
+    element: <GenresPage />,
+  }
 ]);
 
 if (import.meta.env.VITE_API_URL) {
@@ -65,7 +72,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     >
       <MantineProvider theme={theme}>
         <Notifications position="top-right" />
-        <ModalsProvider>
+        <ModalsProvider
+          modals={{
+            addGenre: AddGenreModal,
+            editGenre: EditGenreModal,
+          }}
+        >
           <RouterProvider router={router} />
         </ModalsProvider>
       </MantineProvider>

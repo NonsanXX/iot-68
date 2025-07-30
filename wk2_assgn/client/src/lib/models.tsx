@@ -6,6 +6,7 @@ export interface Book {
   synopsis?: string;
   publishedAt: string;
   genreId?: number;
+  genre?: number;
 }
 
 export interface Genre {
