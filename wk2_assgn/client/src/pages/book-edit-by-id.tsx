@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
 import { modals } from "@mantine/modals";
+import { Select } from "@mantine/core";
 import dayjs from "dayjs";
 
 export default function BookEditById() {
@@ -20,6 +21,7 @@ export default function BookEditById() {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const { data: book, isLoading, error } = useSWR<Book>(`/books/${bookId}`);
+  const { data: genres } = useSWR<{ id: number; title: string }[]>(`/genres`);
   const [isSetInitialValues, setIsSetInitialValues] = useState(false);
 
   const bookEditForm = useForm({
@@ -29,6 +31,7 @@ export default function BookEditById() {
       description: "",
       synopsis: "",
       publishedAt: new Date(),
+      genreId: null as number | null,
     },
 
     validate: {
@@ -130,6 +133,7 @@ export default function BookEditById() {
         description: book.description || "",
         synopsis: book.synopsis || "",
         publishedAt: parsedDate,
+        genreId: book.genreId || null,
       })
 
       bookEditForm.setValues({
@@ -138,6 +142,7 @@ export default function BookEditById() {
         description: book.description || "",
         synopsis: book.synopsis || "",
         publishedAt: parsedDate,
+        genreId: book.genreId || null,
       })
 
       setIsSetInitialValues(true)
@@ -194,7 +199,21 @@ export default function BookEditById() {
                   {...bookEditForm.getInputProps("synopsis")}
                 />
 
-                {/* TODO: เพิ่มหมวดหมู่(s) */}
+                <Select
+                  label="หมวดหมู่"
+                  placeholder="เลือกหมวดหมู่"
+                  data={
+                    (genres || []).map((genre) => ({
+                      value: genre.id.toString(),
+                      label: genre.title,
+                    }))
+                  }
+                  value={bookEditForm.values.genreId ? bookEditForm.values.genreId.toString() : ""}
+                  onChange={(value) => {
+                    bookEditForm.setFieldValue("genreId", value ? Number(value) : null);
+                  }}
+                />
+
 
                 <Divider />
 

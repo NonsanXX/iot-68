@@ -7,11 +7,15 @@ import axios, { AxiosError } from "axios";
 import { notifications } from "@mantine/notifications";
 import { Book } from "../lib/models";
 import { DateTimePicker } from "@mantine/dates";
+import { Select } from "@mantine/core";
+import useSWR from "swr";
 
 export default function BookCreatePage() {
   const navigate = useNavigate();
 
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const {data: genres} = useSWR<{ id: number; title: string }[]>(`/genres`);
 
   const bookCreateForm = useForm({
     initialValues: {
@@ -20,6 +24,7 @@ export default function BookCreatePage() {
       description: "",
       synopsis: "",
       publishedAt: new Date(),
+      genreId: null as number | null,
     },
 
     validate: {
@@ -104,7 +109,20 @@ export default function BookCreatePage() {
               {...bookCreateForm.getInputProps("synopsis")}
             />
 
-            {/* TODO: เพิ่มหมวดหมู่(s) */}
+            <Select
+              label="หมวดหมู่"
+              placeholder="เลือกหมวดหมู่"
+              data={
+                (genres || []).map((genre) => ({
+                  value: genre.id.toString(),
+                  label: genre.title,
+                }))
+              }
+              {...bookCreateForm.getInputProps("genreId")}
+              onChange={(value) => {
+                bookCreateForm.setFieldValue("genreId", value ? Number(value) : null);
+              }}
+            />
 
             <Divider />
 

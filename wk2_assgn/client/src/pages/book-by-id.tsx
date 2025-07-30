@@ -2,6 +2,7 @@ import { Alert, Badge, Button, Container, Divider } from "@mantine/core";
 import Layout from "../components/layout";
 import { Link, useParams } from "react-router-dom";
 import { Book } from "../lib/models";
+import { Genre } from "../lib/models";
 import useSWR from "swr";
 import Loading from "../components/loading";
 import { IconAlertTriangleFilled, IconEdit } from "@tabler/icons-react";
@@ -10,6 +11,9 @@ export default function BookByIdPage() {
   const { bookId } = useParams();
 
   const { data: book, isLoading, error } = useSWR<Book>(`/books/${bookId}`);
+  const { data: genre } = useSWR<Genre>(
+    book?.genreId ? `/genres/${book.genreId}` : null
+  );
 
   return (
     <>
@@ -40,21 +44,24 @@ export default function BookByIdPage() {
                 <div className="col-span-2 px-4 space-y-2 py-4">
                   <h3>รายละเอียดหนังสือ</h3>
                   <p className="indent-4">
-                    {book.description || "No description available."}
+                    {book.description || "ไม่มีคำอธิบายหนังสือ"}
                   </p>
 
                   <h3>เรื่องย่อ</h3>
                   <p className="indent-4">
-                    {book.synopsis || "No synopsis available."}
+                    {book.synopsis || "ไม่มีเรื่องย่อหรือสรุปเนื้อหา"}
                   </p>
 
                   <h3>หมวดหมู่</h3>
                   {/* TODO: เพิ่มหมวดหมู่(s) */}
                   <div className="flex flex-wrap gap-2">
-                    <Badge color="teal">#หมวดหมู่ 1</Badge>
-                    <Badge color="teal">#หมวดหมู่ 2</Badge>
-                    <Badge color="teal">#หมวดหมู่ 3</Badge>
-                    <Badge color="teal">#หมวดหมู่ 4</Badge>
+                    {genre ? (
+                      <Badge key={genre.id} color="teal">
+                        {genre.title}
+                      </Badge>
+                    ) : (
+                      <Badge color="gray">ไม่ทราบหมวดหมู่</Badge>
+                    )}
                   </div>
                 </div>
               </div>

@@ -5,4 +5,10 @@ export interface Book {
   description?: string;
   synopsis?: string;
   publishedAt: string;
+  genreId?: number;
+}
+
+export interface Genre {
+  id: number;
+  title: string;
 }
