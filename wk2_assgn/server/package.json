@@ -5,9 +5,7 @@
     "dev": "tsx watch api/index.ts",
     "vercel:dev": "vercel dev",
     "vercel:deploy": "vercel",
-    "drizzle": "drizzle-kit",
-    "build": "tsc",
-    "vercel-build": "npm run build"
+    "drizzle": "drizzle-kit"
   },
   "dependencies": {
     "@hono/node-server": "^1.16.0",
