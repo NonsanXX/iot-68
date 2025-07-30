@@ -26,6 +26,8 @@ export default function BookEditById() {
     initialValues: {
       title: "",
       author: "",
+      description: "",
+      synopsis: "",
       publishedAt: new Date(),
     },
 
@@ -117,26 +119,28 @@ export default function BookEditById() {
   };
 
   useEffect(() => {
-  if (!isSetInitialValues && book) {
-    const parsedDate = book.publishedAt
-      ? dayjs(book.publishedAt).toDate() // works with ISO or Date
-      : new Date();
+    if (!isSetInitialValues && book) {
+      const parsedDate = book.publishedAt
+        ? dayjs(book.publishedAt).toDate() // works with ISO or Date
+        : new Date();
 
-    bookEditForm.setInitialValues({
-      title: book.title,
-      author: book.author,
-      publishedAt: parsedDate,
-    })
+      bookEditForm.setInitialValues({
+        title: book.title,
+        author: book.author,
+        description: book.description || "",
+        synopsis: book.synopsis || "",
+        publishedAt: parsedDate,
+      })
 
-    bookEditForm.setValues({
-      title: book.title,
-      author: book.author,
-      publishedAt: parsedDate,
-    })
+      bookEditForm.setValues({
+        title: book.title,
+        author: book.author,
+        publishedAt: parsedDate,
+      })
 
-    setIsSetInitialValues(true)
-  }
-}, [book, bookEditForm, isSetInitialValues])
+      setIsSetInitialValues(true)
+    }
+  }, [book, bookEditForm, isSetInitialValues])
 
 
   return (
@@ -177,8 +181,17 @@ export default function BookEditById() {
                   {...bookEditForm.getInputProps("publishedAt")}
                 />
 
-                {/* TODO: เพิ่มรายละเอียดหนังสือ */}
-                {/* TODO: เพิ่มเรื่องย่อ */}
+                <TextInput
+                  label="รายละเอียดหนังสือ"
+                  placeholder="รายละเอียดหนังสือ"
+                  {...bookEditForm.getInputProps("description")}
+                />
+                <TextInput
+                  label="เรื่องย่อ"
+                  placeholder="เรื่องย่อ"
+                  {...bookEditForm.getInputProps("synopsis")}
+                />
+
                 {/* TODO: เพิ่มหมวดหมู่(s) */}
 
                 <Divider />
