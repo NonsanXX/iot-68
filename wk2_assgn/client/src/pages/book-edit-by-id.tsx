@@ -117,20 +117,27 @@ export default function BookEditById() {
   };
 
   useEffect(() => {
-    if (!isSetInitialValues && book) {
-      bookEditForm.setInitialValues({
-        title: book.title,
-        author: book.author,
-        publishedAt: dayjs.unix(book.publishedAt as unknown as number).toDate(),
-      });
-      bookEditForm.setValues({
-        title: book.title,
-        author: book.author,
-        publishedAt: dayjs.unix(book.publishedAt as unknown as number).toDate(),
-      });
-      setIsSetInitialValues(true);
-    }
-  }, [book, bookEditForm, isSetInitialValues]);
+  if (!isSetInitialValues && book) {
+    const parsedDate = book.publishedAt
+      ? dayjs(book.publishedAt).toDate() // works with ISO or Date
+      : new Date();
+
+    bookEditForm.setInitialValues({
+      title: book.title,
+      author: book.author,
+      publishedAt: parsedDate,
+    })
+
+    bookEditForm.setValues({
+      title: book.title,
+      author: book.author,
+      publishedAt: parsedDate,
+    })
+
+    setIsSetInitialValues(true)
+  }
+}, [book, bookEditForm, isSetInitialValues])
+
 
   return (
     <>
