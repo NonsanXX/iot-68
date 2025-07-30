@@ -135,6 +135,8 @@ export default function BookEditById() {
       bookEditForm.setValues({
         title: book.title,
         author: book.author,
+        description: book.description || "",
+        synopsis: book.synopsis || "",
         publishedAt: parsedDate,
       })
 

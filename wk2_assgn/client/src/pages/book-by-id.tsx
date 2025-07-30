@@ -45,8 +45,7 @@ export default function BookByIdPage() {
 
                   <h3>เรื่องย่อ</h3>
                   <p className="indent-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia officiis amet nemo
-                    ut placeat aliquam neque id voluptates quod nihil.
+                    {book.synopsis || "No synopsis available."}
                   </p>
 
                   <h3>หมวดหมู่</h3>

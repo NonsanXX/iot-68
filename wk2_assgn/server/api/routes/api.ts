@@ -1,8 +1,10 @@
 import { Hono } from "hono";
 import booksRouter from "./books.js";
+import studentsRouter from "./students.js";
+import genresRouter from "./genre.js";
 import { bearerAuth } from "hono/bearer-auth";
 import { env } from "hono/adapter";
-import studentsRouter from "./students.js";
+
 
 const apiRouter = new Hono();
 
@@ -21,6 +23,7 @@ apiRouter.use(
 );
 
 apiRouter.route("/books", booksRouter);
+apiRouter.route("/genres", genresRouter);
 apiRouter.route("/students", studentsRouter)
 
 export default apiRouter;
