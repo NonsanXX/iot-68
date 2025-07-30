@@ -1,11 +1,13 @@
 {
-  "name": "02-2-database-crud-drizzle",
+  "name": "week2-server",
   "type": "module",
   "scripts": {
     "dev": "tsx watch api/index.ts",
     "vercel:dev": "vercel dev",
     "vercel:deploy": "vercel",
-    "drizzle": "drizzle-kit"
+    "drizzle": "drizzle-kit",
+    "build": "tsc",
+    "vercel-build": "npm run build"
   },
   "dependencies": {
     "@hono/node-server": "^1.16.0",
