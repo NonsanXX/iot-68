@@ -14,6 +14,9 @@ import BooksPage from "./pages/books";
 import BookByIdPage from "./pages/book-by-id";
 import BookEditById from "./pages/book-edit-by-id";
 import GenresPage from "./pages/genres";
+import MenuPage from "./pages/menu";
+import ManageMenuPage from "./pages/manage-menu";
+import OrdersPage from "./pages/orders";
 import { ModalsProvider } from "@mantine/modals";
 import BookCreatePage from "./pages/book-create";
 import AddGenreModal from "./components/AddGenreModal";
@@ -48,6 +51,18 @@ const router = createBrowserRouter([
   {
     path: "/genres",
     element: <GenresPage />,
+  },
+  {
+    path: "/menu",
+    element: <MenuPage />,
+  },
+  {
+    path: "/manage-menu",
+    element: <ManageMenuPage />,
+  },
+  {
+    path: "/orders",
+    element: <OrdersPage />,
   }
 ]);
 

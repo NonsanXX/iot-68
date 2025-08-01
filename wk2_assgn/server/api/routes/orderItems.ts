@@ -56,21 +56,32 @@ orderItemsRouter.post(
             orderId: z.number().int().positive(),
             menuItemId: z.number().int().positive(),
             quantity: z.number().int().positive().default(1),
-            note: z.string().max(255).optional(),
+            note: z.string().max(255).optional().nullable(),
         })
     ),
     async (c) => {
         const { orderId, menuItemId, quantity, note } = c.req.valid("json");
-        const result = await drizzle
-            .insert(orderItems)
-            .values({
-                orderId,
-                menuItemId,
-                quantity: quantity ?? 1,
-                note: note ?? null,
-            })
-            .returning();
-        return c.json({ success: true, orderItem: result[0] }, 201);
+        
+        console.log("Received order item data:", { orderId, menuItemId, quantity, note }); // Debug log
+        
+        try {
+            const result = await drizzle
+                .insert(orderItems)
+                .values({
+                    orderId,
+                    menuItemId,
+                    quantity: quantity || 1,
+                    note: note || null,
+                })
+                .returning();
+            
+            console.log("Order item created successfully:", result[0]); // Debug log
+            return c.json({ success: true, orderItem: result[0] }, 201);
+        } catch (error) {
+            console.error("Database error:", error);
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            return c.json({ error: "Failed to create order item", details: errorMessage }, 500);
+        }
     }
 );
 

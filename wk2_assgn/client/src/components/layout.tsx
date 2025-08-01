@@ -43,6 +43,20 @@ export default function Layout({ children }: LayoutProps) {
               >
                 เมนู
               </Link>
+
+              <Link
+                to={"/manage-menu"}
+                className="flex items-center h-14 px-1 no-underline text-neutral-600 font-semibold text-sm"
+              >
+                จัดการเมนู (สตาฟ)
+              </Link>
+
+              <Link
+                to={"/orders"}
+                className="flex items-center h-14 px-1 no-underline text-neutral-600 font-semibold text-sm"
+              >
+                คำสั่งซื้อ (สตาฟ)
+              </Link>
             </Group>
 
             <div></div>

@@ -13,3 +13,25 @@ export interface Genre {
   id: number;
   title: string;
 }
+
+export interface MenuItem {
+  id: number;
+  name: string;
+  category: string;
+  price: string;
+}
+
+export interface Order {
+  id: number;
+  createdAt: string;
+}
+
+export interface OrderItem {
+  id: number;
+  orderId: number;
+  menuItemId: number;
+  quantity: number;
+  note?: string;
+  order?: Order;
+  menuItem?: MenuItem;
+}
